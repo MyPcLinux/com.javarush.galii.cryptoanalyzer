@@ -1,33 +1,28 @@
 public class Coder {
-    public static String coder(String inputStringToCoding, int key) {
-//условие if решает проблему не работающего ключа со значением кратным 26 == 0
-        if(key % 26 == 0){key ++;}
-
+    // Метод для кодирования строки с использованием заданного алфавита
+    public static String coder(String inputStringToCoding, int key, char[] alphabet) {
+        int alphabetLength = alphabet.length;
         char[] symbol = new char[inputStringToCoding.length()];
 
         for (int i = 0; i < inputStringToCoding.length(); i++) {
+            char currentChar = inputStringToCoding.charAt(i);
 
-            // В условии проверяем является ли перебираемый inputStringToCoding буквой и isUpperCase регистром
-            if(Character.isLetter(inputStringToCoding.charAt(i)) && Character.isUpperCase(inputStringToCoding.charAt(i))){
-                //charAt(i) - обращение к каждому символу в symbol[i]
-                //(char) ((int)(inputStringToCoding.charAt(i) + key)) - char to int(нужен для сложения ключа) to char
-                //эта кострукция зацикливает алфавит больших символов(65) - не дает ключу выйти в аэроглифы
-                symbol[i] = (char) (((((int)(inputStringToCoding.charAt(i))) - 65 + key ) % 26) + 65);
-            }
-            // --- и isLowerCase регистром
-            else if (Character.isLetter(inputStringToCoding.charAt(i)) && Character.isLowerCase(inputStringToCoding.charAt(i))){
-                //эта кострукция зацикливает алфавит маленьких символов(97) - не дает ключу выйти в аэроглифы
-                symbol[i] = (char) (((((int)(inputStringToCoding.charAt(i))) - 97 + key ) % 26) + 97);
-            }else {
-                symbol[i] = inputStringToCoding.charAt(i);
-            }
+            // Используем кастомный метод для поиска символа в алфавите
+            int index = ScannerAlphabet.findCharInAlphabet(currentChar, alphabet);
 
+            if (index != -1) { // Символ найден в алфавите
+                // Рассчитываем новый индекс с учётом сдвига и зацикливания
+                int newIndex = (index + key) % alphabetLength;
+                if (newIndex < 0) {
+                    newIndex += alphabetLength; // Зацикливание на случай отрицательного индекса
+                }
+                symbol[i] = alphabet[newIndex];
+            } else {
+                // Если символ не из алфавита, оставляем его без изменений
+                symbol[i] = currentChar;
+            }
         }
-//        System.out.println(symbol);// это массив символов
-        String strCrypted = String.copyValueOf(symbol);// стринг
-       return strCrypted;
-
-//        System.out.println("Оригинал предложение - " + " \"" + inputStringToCoding + "\"");
-//        System.out.println("Закодированное предложение с ключем смещения = "+ key + " \"" + strCrypted + "\"");
+        // Преобразуем массив символов в строку и возвращаем
+        return String.copyValueOf(symbol);
     }
 }

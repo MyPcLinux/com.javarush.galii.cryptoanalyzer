@@ -10,12 +10,12 @@ public class Runner {
 
         System.out.print("Введите ключ шага для кодирования текста: ");
         int inputKey = scan.nextInt();
-        scan.close();
-        String resultEncoding = Coder.coder(inputString, inputKey);
+
+        String resultEncoding = Coder.coder(inputString, inputKey, Alphabet.latinAlphabet);
 
         System.out.println("Ваш закодированный текст - " + resultEncoding);
 
-        System.out.println("Ваш декодированный текст - " + Decoder.decoder(resultEncoding, inputKey));
+        System.out.println("Ваш декодированный текст - " + Decoder.decoder(resultEncoding, inputKey, Alphabet.latinAlphabet));
 
 
     }
