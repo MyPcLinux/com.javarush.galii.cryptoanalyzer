@@ -1,3 +1,7 @@
+package coder_decoder;
+
+import utils.ScannerAlphabet;
+
 public class Coder {
     // Метод для кодирования строки с использованием заданного алфавита
     public static String coder(String inputStringToCoding, int key, char[] alphabet) {

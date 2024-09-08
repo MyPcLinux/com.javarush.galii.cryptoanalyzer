@@ -1,3 +1,7 @@
+package coder_decoder;
+
+import coder_decoder.Coder;
+
 public class Decoder {
     public static String decoder(String inputStringToDecoding, int key, char[] alphabet) {
         // Декодирование — это то же самое, что кодирование, но с отрицательным ключом
