@@ -1,6 +1,7 @@
-package tmp;
+import java.io.File;
+import java.util.Scanner;
 
-public class CoderRusEng {
+public class Coder {
     public static String coderMethod(String inputText, int key) {
         StringBuilder result = new StringBuilder();
 
@@ -32,5 +33,26 @@ public class CoderRusEng {
             }
         }
         return result.toString();
+    }
+
+    public static void coderInfo() {
+        // Используем Scanner для ввода пути к файлу
+        Scanner inputScanner = new Scanner(System.in);
+
+        System.out.print("Введите путь к файлу который хотите зашивовать : ");
+        String filePath = inputScanner.nextLine();
+
+        System.out.print("Введите путь для сохранения файла: ");
+        String outputFilePath = inputScanner.nextLine();
+
+        System.out.print("Введите сдвиг для шифра Цезаря: ");
+        int inputKey = inputScanner.nextInt();
+
+        // Создаем объект File на основе введенного пути
+        File inputFile = new File(filePath);
+        File outputFile = new File(outputFilePath);
+        // Вызываем метод для шифрования файла
+        EncryptFileWithScanner.encryptFileWithScanner(inputFile, outputFile, inputKey);
+
     }
 }

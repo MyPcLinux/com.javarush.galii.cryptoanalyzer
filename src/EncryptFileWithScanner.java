@@ -1,5 +1,3 @@
-package tmp;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
@@ -23,7 +21,7 @@ public class EncryptFileWithScanner {
             }
 
             // Шифруем текст с помощью шифра Цезаря
-            String encryptedContent = CoderRusEng.coderMethod(fileContent.toString(), key);
+            String encryptedContent = Coder.coderMethod(fileContent.toString(), key);
 
                 writer.write(encryptedContent);
                 writer.close();
