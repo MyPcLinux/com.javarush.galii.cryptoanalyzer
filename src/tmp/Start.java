@@ -23,6 +23,6 @@ public class Start {
         File inputFile = new File(filePath);
         File outputFile = new File(outputFilePath);
         // Вызываем метод для шифрования файла
-        encryptFileWithScanner(inputFile,outputFile, inputKey);
+        encryptFileWithScanner(inputFile, outputFile, inputKey);
     }
 }

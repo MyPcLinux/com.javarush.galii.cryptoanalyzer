@@ -1,18 +1,20 @@
 package tmp;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class EncryptFileWithScanner {
-    // Метод для чтения файла с помощью Scanner и шифрования текста
+    // Метод для чтения файла с помощью Scanner
     public static void encryptFileWithScanner(File inputFile,File outputFile, int key) {
-        try {
-            // Используем Scanner для чтения файла
-            Scanner scanner = new Scanner(inputFile, "UTF-8");
-            StringBuilder fileContent = new StringBuilder();
+
+        try( // Используем Scanner для чтения файла
+                Scanner scanner = new Scanner(inputFile, StandardCharsets.UTF_8);
+                // BufferedWriter для записи в файл с добавлением
+                BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, true))
+            )
+        {
+           StringBuilder fileContent = new StringBuilder();
 
             // Читаем весь файл построчно
             while (scanner.hasNextLine()) {
@@ -23,11 +25,6 @@ public class EncryptFileWithScanner {
             // Шифруем текст с помощью шифра Цезаря
             String encryptedContent = CoderRusEng.coderMethod(fileContent.toString(), key);
 
-            // Выводим зашифрованный текст в консоль (или можем записать его в файл)
-//            System.out.println("Зашифрованный текст:");
-//            System.out.println(encryptedContent);
-            // Записываем зашифрованный текст в выходной файл
-            FileWriter writer = new FileWriter(outputFile, true); // Параметр true означает "добавить в файл"
                 writer.write(encryptedContent);
                 writer.close();
             System.out.println("Файл успешно зашифрован и записан в: " + outputFile.getPath());
