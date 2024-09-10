@@ -21,12 +21,15 @@ public class EncryptFileWithScanner {
             }
 
             // Шифруем текст с помощью шифра Цезаря
-            String encryptedContent = Coder.coderMethod(fileContent.toString(), key);
+            String encryptedContent = MainCoderMethod.coderMethod(fileContent.toString(), key);
 
                 writer.write(encryptedContent);
-                writer.close();
-            System.out.println("Файл успешно зашифрован и записан в: " + outputFile.getPath());
-            scanner.close(); // Закрываем Scanner после использования
+
+            System.out.println("Файл успешно зашифрован и записан по адресу : " + outputFile.getPath());
+            System.out.println("Программа выполенеа успешно.");
+
+
+            System.exit(0); // Завершаем программу
         } catch (FileNotFoundException e) {
             System.err.println("Файл не найден: " + e.getMessage());
         }catch (IOException e) {
