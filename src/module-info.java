@@ -1,8 +1,9 @@
 module com.javarush.galii.cryptoanalyzer {
 
-    requires javafx.fxml;
-    requires javafx.controls;
-    exports controllers;
 
+    requires javafx.controls;
+    requires javafx.fxml;
+
+    exports com.javarush.galii.cryptoanalyzer;
 
 }

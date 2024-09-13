@@ -8,4 +8,5 @@ public class Start {
         //-----------Процесс декодирования-------------------------
         Decoder.decoderInfo();
     }
+
 }
