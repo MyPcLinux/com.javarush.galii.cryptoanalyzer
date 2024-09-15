@@ -15,9 +15,11 @@ public class Controller {
     File file;
     // Привязываем текстовое поле из FXML
     @FXML
-    private TextField inputField;
+    private TextField inputFieldCoder;
+    @FXML
+    private TextField inputFieldDecoder;
 
-    // Кнопка "Выбрать файл"
+    // Кнопка "Выбрать файл" (работает для шифрования и дешифрования)
     @FXML
     protected  void onOpenFileButtonClick(){
         // ПО НАЖАТИЮ НА КНОПКУ "ОТКРЫТЬ ФАЙЛ" ИЗ ИНТЕРФЕЙСА (fxml)
@@ -33,7 +35,8 @@ public class Controller {
     }
     // Метод, который вызывается при вводе текста
     public void inputFieldKey(ActionEvent inputKey) {
-        System.out.println("Введенный ключ - " + inputKey);
+
+//        System.out.println("Введенный ключ - " + inputKey);
     }
 
     // Кнопка начать кодировать файл
@@ -42,8 +45,8 @@ public class Controller {
         System.out.println("coderButtonClick() - click");
 
         // Получаем введённый текст из текстового поля inputFieldKey
-        String inputText = inputField.getText();
-        System.out.println("Введённый текст: " + inputText);
+        String inputText = inputFieldCoder.getText();
+        System.out.println("Введённый ключ: " + inputText);
 
         try{
             FileWriter fileWriter = new FileWriter("coderText.txt");
@@ -53,5 +56,17 @@ public class Controller {
             throw new RuntimeException();
         }
 
+    }
+
+    //-----------------Декодер------------------------------------
+
+
+    @FXML
+    protected void decoderButtonClick(){
+        System.out.println("decoderButtonClick() - click");
+
+        // Получаем введённый текст из текстового поля inputFieldKey
+        String inputText = inputFieldDecoder.getText();
+        System.out.println("Введённый ключ: " + inputText);
     }
 }
