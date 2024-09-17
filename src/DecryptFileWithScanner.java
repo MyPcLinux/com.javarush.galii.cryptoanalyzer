@@ -3,7 +3,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class DecryptFileWithScanner {
-    // Метод для декодирования файла
+
     // Метод для декодирования файла с использованием Scanner
     public static void decryptFileWithScanner(File inputFile, File outputFile, int key, Alphabet alphabet) {
         try (Scanner scanner = new Scanner(inputFile);

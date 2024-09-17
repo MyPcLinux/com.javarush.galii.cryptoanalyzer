@@ -2,10 +2,8 @@ import java.io.*;
 import java.util.Scanner;
 
 public class DecoderDialog {
-    private Alphabet alphabet;
-
     public static void decoderDialog() {
-
+        Alphabet alphabet = new Alphabet();
         // Ввод данных
         Scanner inputScanner = new Scanner(System.in);
         File inputFile = null;
@@ -14,14 +12,14 @@ public class DecoderDialog {
         //----- Проверка, существует ли файл, является ли он файлом и имеет ли расширение .txt-------
         while (!correctPathDec){
             System.out.print("Введите путь к зашифрованному файлу: ");
-            String filrPath = inputScanner.nextLine();
-            inputFile = new File(filrPath);
+            String filePath = inputScanner.nextLine();
+            inputFile = new File(filePath);
 
             if (!inputFile.exists()) {
                 System.out.println("Ошибка: Файл не найден. Проверьте правильность пути.");
             } else if (!inputFile.isFile()) {
                 System.out.println("Ошибка: Указанный путь не является файлом.");
-            } else if (!filrPath.endsWith(".txt")) {
+            } else if (!filePath.endsWith(".txt")) {
                 System.out.println("Ошибка: Файл не имеет расширения .txt.");
             } else {
                 System.out.println("Файл найден и имеет корректное расширение: " + inputFile.getPath());
@@ -29,7 +27,7 @@ public class DecoderDialog {
             }
         }
 
- //---------------------------- Проверка файла перед записью-----------------------
+        //---------------------------- Проверка файла перед записью-----------------------
         File outputFile = null;
         boolean correctPathToSave = false;
 
@@ -79,9 +77,8 @@ public class DecoderDialog {
             }
         }
         System.out.println("Вы ввели число: " + inputKey);
-
         // Вызываем метод для декодирования
-       DecryptFileWithScanner.decryptFileWithScanner(inputFile, outputFile, inputKey, new Alphabet());
+       DecryptFileWithScanner.decryptFileWithScanner(inputFile, outputFile, inputKey, alphabet);
     }
 }
 
