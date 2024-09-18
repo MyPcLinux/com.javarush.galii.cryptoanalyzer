@@ -4,12 +4,12 @@ import java.util.Map;
 
 import java.util.*;
 
-class Alphabet {
+public class Alphabet {
+    private final Map<Character, Integer> charToIndexMap;
+    private final Map<Integer, Character> indexToCharMap;
     private final char[] ALPHABET_RUS = {'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з',
             'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ',
             'ъ', 'ы', 'ь', 'э', 'ю', 'я'};
-    private final Map<Character, Integer> charToIndexMap;
-    private final Map<Integer, Character> indexToCharMap;
 
     public Alphabet() {
         charToIndexMap = new HashMap<>();
