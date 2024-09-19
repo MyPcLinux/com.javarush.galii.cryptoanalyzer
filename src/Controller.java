@@ -3,6 +3,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import java.io.File;
+import java.io.IOException;
 
 public class Controller {
     @FXML
@@ -28,25 +29,51 @@ public class Controller {
 
     @FXML
     protected void encryptOnClick() {
+        // Очистка сообщения об ошибке
         encryptedProblem.setText("");
+
+        // Получение ключа шифрования и его сброс в UI
         String key = encrypterKey.getText();
         encrypterKey.setText("");
+
+        // Проверка существования файла
         if (!Validator.isFileExists()) {
-            encryptedProblem.setText("Choose File!");
-            return;
-        } else if (!Validator.isValidKey(key, Alphabet.getAlphabet())) {
-            encryptedProblem.setText("Write another key!");
+            encryptedProblem.setText("Выберите файл!");
             return;
         }
-        FileManager fileManager = new FileManager();
-        String path = FileManager.getFile().toString();
-        Cipher encrypter = new Cipher(Alphabet.getAlphabet());
-        String text = fileManager.readFile(path);
-        String encrypted = encrypter.encrypt(text, Integer.parseInt(key));
-        fileManager.writeFile(encrypted, path.replace(FileManager.getFile().getName(), "Encrypted.txt"));
-        FileManager.setFile(null);
-    }
 
+        // Проверка валидности ключа
+        if (!Validator.isValidKey(key, Alphabet.getAlphabet())) {
+            encryptedProblem.setText("Введите другой ключ!");
+            return;
+        }
+
+        // Работа с файлом
+        try {
+            FileManager fileManager = new FileManager();
+            String path = FileManager.getFile().toString();
+
+            // Чтение файла
+            String text = fileManager.readFile(path);
+            if (text == null || text.isEmpty()) {
+                encryptedProblem.setText("Ошибка: Файл пустой! Решение: Выберите другой файл");
+                return;
+            }
+
+            // Шифрование текста
+            Cipher encrypter = new Cipher(Alphabet.getAlphabet());
+            String encryptedText = encrypter.encrypt(text, Integer.parseInt(key));
+
+            // Запись зашифрованного текста в новый файл
+            String encryptedFilePath = path.replace(FileManager.getFile().getName(), "New_File_Encrypted.txt");
+            fileManager.writeFile(encryptedText, encryptedFilePath);
+
+            // Сброс файла в FileManager
+            FileManager.setFile(null);
+        } catch (NumberFormatException e) {
+            encryptedProblem.setText("Ошибка: Неверный формат ключа! Решение: Введите номер от 1 - 99");
+        }
+    }
     @FXML
     protected void decryptOnClick() {
         decryptedProblem.setText("");

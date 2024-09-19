@@ -1,49 +1,48 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Cipher {
     private final char[] alphabet;
+    private final Map<Character, Integer> charPositionMap; // Для быстрого поиска позиции символа
+
     public Cipher(char[] alphabet) {
         this.alphabet = alphabet;
+        this.charPositionMap = new HashMap<>();
+        for (int i = 0; i < alphabet.length; i++) {
+            charPositionMap.put(alphabet[i], i); // Создаем карту символ -> индекс
+        }
     }
-    public String encrypt(String text, int shift) {
+    //Метод кодирует текст по ключу
+    public String encrypt(String text, int inputKey) {
+        return shiftText(text, inputKey);
+    }
+//Метод декодирует текст
+    public String decrypt(String encryptedText, int negativeInputKey) {
+        return shiftText(encryptedText, -negativeInputKey);
+    }
+// Сдвиг текста по ключу encrypt() или decrypt()
+    private String shiftText(String text, int inputKey) {
         text = text.toLowerCase();
         char[] textArr = text.toCharArray();
-        int charPosition = 0;
+        int alphabetLength = alphabet.length;
+
         for (int i = 0; i < textArr.length; i++) {
-            for (int j = 0; j < alphabet.length; j++) {
-                if (textArr[i] == alphabet[j]) {
-                    charPosition = j;
-                    break;
-                }
+            char currentChar = textArr[i];
+
+            // Пропускаем символы, которых нет в алфавите (например, пробелы, знаки препинания)
+            if (!charPositionMap.containsKey(currentChar)) {
+                continue;
             }
-            int result = charPosition + shift;
-            if (result >= 40) {
-                textArr[i] = alphabet[result - 40];
-            } else if (result < 0) {
-                textArr[i] = alphabet[result + 40];
-            } else {
-                textArr[i] = alphabet[result];
+
+            int charPosition = charPositionMap.get(currentChar);
+            int shiftedPosition = (charPosition + inputKey) % alphabetLength;
+
+            // Если позиция стала отрицательной, добавляем длину алфавита
+            if (shiftedPosition < 0) {
+                shiftedPosition += alphabetLength;
             }
-        }
-        return String.valueOf(textArr);
-    }
-    public String decrypt(String encryptedText, int shift) {
-        encryptedText = encryptedText.toLowerCase();
-        char[] textArr = encryptedText.toCharArray();
-        int charPosition = 0;
-        for (int i = 0; i < textArr.length; i++) {
-            for (int j = 0; j < alphabet.length; j++) {
-                if (textArr[i] == alphabet[j]) {
-                    charPosition = j;
-                    break;
-                }
-            }
-            int result = charPosition - shift;
-            if (result < 0) {
-                textArr[i] = alphabet[result + 40];
-            } else if (result >= 40) {
-                textArr[i] = alphabet[result - 40];
-            } else {
-                textArr[i] = alphabet[result];
-            }
+
+            textArr[i] = alphabet[shiftedPosition];
         }
         return String.valueOf(textArr);
     }
