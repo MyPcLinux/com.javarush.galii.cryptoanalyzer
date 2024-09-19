@@ -1,26 +1,26 @@
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApplication extends Application {
-    // В этом месте стартуем .fxml
+    private static Stage stage;
     @Override
-    public void start(Stage primaryStage) throws IOException {
-//в методе FXMLLoader.load() - даем ссылку на файл .fxml
-        Parent panel = FXMLLoader.load(getClass().getResource("cryptoanalyzer.fxml"));
-
-        Scene scene = new Scene(panel, 700, 450);
-
-        primaryStage.setTitle("javafx: Caesar method");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void start(Stage stage) throws IOException {
+        MainApplication.stage = stage;
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("cryptoanalyzer.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        stage.setTitle("com.javarush.galii.cryptoanalyzer");
+        stage.setScene(scene);
+        stage.show();
     }
-// метод main() можно не писать, он сработает автоматически
+
+    public static Stage getStage() {
+        return stage;
+    }
+
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }
