@@ -34,14 +34,14 @@ if (sc.hasNextInt()) {
             //-----------Процесс кодирования-------------------------
             System.out.println(Constants.MODE_CODDING);
             CoderDialog.coderDialog();
-        }if (inputNum == 2){
+        }else if(inputNum == 2){
             //-----------Процесс декодирования-------------------------
             System.out.println(Constants.MODE_DECODING);
             DecoderDialog.decoderDialog();
         }else{
             //-----------Режим подбора ключа - brute force-------------
             System.out.println(Constants.MODE_BRUTE_FORCE);
-            BruteForceDialog.bruteForceDialog("src//tmp//rusCoded.txt");
+            BruteForceDialog.bruteForce("src//tmp//rusCoded.txt");
         }
     }
 }
