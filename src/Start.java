@@ -12,14 +12,14 @@ public class Start {
         Scanner sc = new Scanner(System.in);
         int inputNum = 0;
         boolean correctNumber = false;
-//Проверка на корректный выбор действия 1 или 2
+//Проверка на корректный выбор действия 1 - кодируем, 2 - декодируем, 3 - перебор ключа (brute-force)
         while (!correctNumber) {
             System.out.println(Constants.CHOICE_MODE);
             System.out.print(Constants.MODE_1_2);
 
 if (sc.hasNextInt()) {
     inputNum = sc.nextInt();
-    if (inputNum >= 1 && inputNum <= 2) {
+    if (inputNum >= 1 && inputNum <= 3) {
         correctNumber = true; // Число корректное, выходим из цикла
     } else {
         System.out.println(Constants.ERROR_INPUT_1_2);
@@ -34,10 +34,14 @@ if (sc.hasNextInt()) {
             //-----------Процесс кодирования-------------------------
             System.out.println(Constants.MODE_CODDING);
             CoderDialog.coderDialog();
-        }else{
+        }if (inputNum == 2){
             //-----------Процесс декодирования-------------------------
             System.out.println(Constants.MODE_DECODING);
             DecoderDialog.decoderDialog();
+        }else{
+            //-----------Режим подбора ключа - brute force-------------
+            System.out.println(Constants.MODE_BRUTE_FORCE);
+            BruteForceDialog.bruteForceDialog("src//tmp//rusCoded.txt");
         }
     }
 }

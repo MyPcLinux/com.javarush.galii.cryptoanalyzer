@@ -47,8 +47,6 @@ public class CoderDecoder {
                 result.append(alphabet.getCharAtIndex(newIndex));
             }
         }
-
         return result.toString();
     }
-
 }
