@@ -41,7 +41,8 @@ if (sc.hasNextInt()) {
         }else{
             //-----------Режим подбора ключа - brute force-------------
             System.out.println(Constants.MODE_BRUTE_FORCE);
-            BruteForceDialog.bruteForce("src//tmp//rusCoded.txt");
+            System.out.println("Этот метод в разработке");
+
         }
     }
 }

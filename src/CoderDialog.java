@@ -65,7 +65,7 @@ public class CoderDialog {
             if (inputValueScanner.hasNextInt()) {
                 key = inputValueScanner.nextInt();
                 inputValueScanner.nextLine(); // Очищаем сканер
-                if (key >= 1 && key <= 25) {
+                if (key >= 1 && key <= 33) {
                     validKey = true;
                 } else {
                     System.out.println(Constants.ERROR_INPUT_VALUE_KEY);
